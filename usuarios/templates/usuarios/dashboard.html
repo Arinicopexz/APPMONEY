@@ -1,0 +1,39 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<h1>Bienvenido {{ user.username }}</h1>
+
+<h2>Tus Cuentas</h2>
+
+{% if cuentas %}
+  <a href="{% url 'crear_cuenta' %}" class="btn btn-success mb-3">Crear nueva cuenta</a>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Número de cuenta</th>
+        <th>Tipo</th>
+        <th>Saldo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cuenta in cuentas %}
+      <tr>
+        <td>{{ cuenta.numero_cuenta }}</td>
+        <td>{{ cuenta.tipo_cuenta }}</td>
+        <td>${{ cuenta.saldo }}</td>
+        <td>
+          <a href="{% url 'transferencia' cuenta.id %}" class="btn btn-sm btn-primary">Transferir</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No tienes cuentas aún. <a href="{% url 'crear_cuenta' %}">Crea una aquí</a>.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'usuarios/base.html' %}
+
+{% block content %}
+  {% if form.errors %}
+    <ul>
+      {% for field, errors in form.errors.items %}
+        <li>{{ field }}: {{ errors|join:", " }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2>Formulario</h2>
+  <form method="post" class="card p-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+{% endblock %}
